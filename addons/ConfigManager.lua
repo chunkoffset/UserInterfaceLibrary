@@ -468,6 +468,14 @@ function SaveManager:SaveJSON(ConfigName)
         element = if IgnoreIndexes.ElementTransparency then nil else Library.ElementTransparencyValue,
     }
 
+    local WindowFrame = Library.Window and Library.Window.MainFrame
+    if WindowFrame and not IgnoreIndexes.WindowSize then
+        CurrentData.window = {
+            width = WindowFrame.Size.X.Offset,
+            height = WindowFrame.Size.Y.Offset,
+        }
+    end
+
     if Library.Acrylic and not IgnoreIndexes.AcrylicBlur then
        local BlurToggle = Library.Toggles and Library.Toggles.BlurToggle
        CurrentData.blur = {
@@ -707,6 +715,26 @@ function SaveManager:LoadJSON(Content: string)
                         BlurToggle:SetValue(BlurData.enabled)
                     end)
                 end
+            end
+        end)
+    end
+        if typeof(Decoded.window) == "table" and not IgnoreIndexes.WindowSize then
+        local WindowData = Decoded.window
+
+        task.defer(function()
+            local WindowFrame = Library.Window and Library.Window.MainFrame
+            local Camera = workspace.CurrentCamera
+            if not WindowFrame or not Camera then return end
+            if typeof(WindowData.width) ~= "number" or typeof(WindowData.height) ~= "number" then return end
+
+            local Viewport = Camera.ViewportSize
+            WindowFrame.Size = UDim2.fromOffset(
+                math.clamp(WindowData.width, Library.MinSize.X, math.max(Library.MinSize.X, Viewport.X - 64)),
+                math.clamp(WindowData.height, Library.MinSize.Y, math.max(Library.MinSize.Y, Viewport.Y - 64))
+            )
+
+            for _, Tab in Library.Tabs do
+                Tab:Resize(true)
             end
         end)
     end
