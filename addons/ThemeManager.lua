@@ -823,7 +823,7 @@ function ThemeManager:CreateThemeManager(Themesbox: any)
     local BackgroundColor = CreateColorOption("Background color", "BackgroundColor")
     local MainColor = CreateColorOption("Element color", "MainColor")
     local AccentColor = CreateColorOption("Accent color", "AccentColor")
-	local ElementColor = CreateColorOption("Sub Accent color", "ElementColor")
+	local ElementColor = CreateColorOption("SubAccent color", "ElementColor")
     local OutlineColor = CreateColorOption("Outline color", "OutlineColor")
     local FontColor = CreateColorOption("Font color", "FontColor")
 
