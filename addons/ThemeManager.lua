@@ -821,10 +821,10 @@ function ThemeManager:CreateThemeManager(Themesbox: any)
     end
 
     local BackgroundColor = CreateColorOption("Background color", "BackgroundColor")
-    local MainColor = CreateColorOption("Main color", "MainColor")
+    local MainColor = CreateColorOption("Element color", "MainColor")
     local AccentColor = CreateColorOption("Accent color", "AccentColor")
+	local ElementColor = CreateColorOption("Sub Accent color", "ElementColor")
     local OutlineColor = CreateColorOption("Outline color", "OutlineColor")
-	local ElementColor = CreateColorOption("Element color", "ElementColor")
     local FontColor = CreateColorOption("Font color", "FontColor")
 
     --// Accessibility: live contrast readout for the colors above
